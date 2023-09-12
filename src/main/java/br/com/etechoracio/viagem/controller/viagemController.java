@@ -5,6 +5,7 @@ import br.com.etechoracio.viagem.repository.ViagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,5 +31,13 @@ public class viagemController {
     public Viagem inserir(@RequestBody Viagem body) {
         Viagem Inserido = repository.save(body);
         return Inserido;
+    }
+
+    @PutMapping("/{id}")
+    public Viagem atualizar(@RequestBody Viagem obj,@PathVariable Long id) {
+        Optional<Viagem> existe = buscarPorId(id);
+        if(existe.isPresent())
+            repository.save(obj);
+        return obj;
     }
 }
